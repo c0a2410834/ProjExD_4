@@ -88,6 +88,10 @@ class Bird(pg.sprite.Sprite):
         引数1 key_lst：押下キーの真理値リスト
         引数2 screen：画面Surface
         """
+        # 機能1: 高速化
+        # 左Shiftキーが押されている間、スピードを20に、それ以外は10にする 
+        self.speed = 20 if key_lst[pg.K_LSHIFT] else 10
+
         sum_mv = [0, 0]
         for k, mv in __class__.delta.items():
             if key_lst[k]:
@@ -100,7 +104,6 @@ class Bird(pg.sprite.Sprite):
             self.dire = tuple(sum_mv)
             self.image = self.imgs[self.dire]
         screen.blit(self.image, self.rect)
-
 
 class Bomb(pg.sprite.Sprite):
     """
