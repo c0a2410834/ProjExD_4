@@ -278,16 +278,17 @@ def main():
                 if event.key == pg.K_SPACE:
                     beams.add(Beam(bird))
 
+                    # 機能5: 防御壁の発動
+                if event.key == pg.K_s and score.value >= 50 and len(shields) == 0:
+                    score.value -= 50
+                    shields.add(Shield(bird, 400))
+
+
         # 無敵状態発動処理（右Shift＋スコア100超で発動）
         if key_lst[pg.K_RSHIFT] and score.value > 100 and bird.state == "normal":
             bird.state = "hyper"
             bird.hyper_life = 500
             score.value -= 100
-
-                # 機能5: 防御壁の発動
-                if event.key == pg.K_s and score.value >= 50 and len(shields) == 0:
-                    score.value -= 50
-                    shields.add(Shield(bird, 400))
 
         screen.blit(bg_img, [0, 0])
 
