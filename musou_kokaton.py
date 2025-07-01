@@ -133,7 +133,10 @@ class Bomb(pg.sprite.Sprite):
         爆弾を速度ベクトルself.vx, self.vyに基づき移動させる
         引数 screen：画面Surface
         """
-        self.rect.move_ip(self.speed*self.vx, self.speed*self.vy)
+        if self.state == "inactive":
+            self.rect.move_ip(self.speed * self.vx, self.speed * self.vy)
+        else:
+            self.rect.move_ip(self.speed * self.vx, self.speed * self.vy)
         if check_bound(self.rect) != (True, True):
             self.kill()
 
@@ -316,6 +319,8 @@ def main():
             score.value += 1  # 1点アップ
 
         for bomb in pg.sprite.spritecollide(bird, bombs, True):  # こうかとんと衝突した爆弾リスト
+            if bomb.state == "inactive":
+                continue
             bird.change_img(8, screen)  # こうかとん悲しみエフェクト
             score.update(screen)
             pg.display.update()
