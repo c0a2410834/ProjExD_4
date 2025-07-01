@@ -253,8 +253,8 @@ class Shield(pg.sprite.Sprite):
         angle = math.degrees(math.atan2(-self.vy, self.vx))
         self.image = pg.Surface((20, bird.rect.height * 2))
         pg.draw.rect(self.image, (0, 0, 255), self.image.get_rect())
-        self.image.set_colorkey((0, 0, 0)) # 黒色部分を透明化
         self.image = pg.transform.rotozoom(self.image, angle, 1.0)
+        self.image.set_colorkey((0, 0, 0)) # 黒色部分を透明化
         self.rect = self.image.get_rect()
         self.rect.center = bird.rect.centerx + bird.rect.width * self.vx, bird.rect.centery + bird.rect.height * self.vy
     
@@ -264,10 +264,12 @@ class Shield(pg.sprite.Sprite):
         self.vx, self.vy = bird.dire
         angle = math.degrees(math.atan2(-self.vy, self.vx))
         # Surfaceを毎回作り直して回転させる
-        base_image = pg.Surface((20, bird.rect.height * 2))
-        pg.draw.rect(base_image, (0, 0, 255), base_image.get_rect())
-        base_image.set_colorkey((0,0,0))
-        self.image = pg.transform.rotozoom(base_image, angle, 1.0)
+        self.image = pg.Surface((20, bird.rect.height * 2))
+        # self.image.set_colorkey((0,0,0))
+        pg.draw.rect(self.image, (0, 0, 255), self.image.get_rect())
+        # self.image.set_colorkey((0,0,0))
+        self.image = pg.transform.rotozoom(self.image, angle, 1.0)
+        self.image.set_colorkey((0,0,0))
         self.rect = self.image.get_rect()
         self.rect.center = bird.rect.centerx + bird.rect.width * self.vx, bird.rect.centery + bird.rect.height * self.vy
         
@@ -298,7 +300,6 @@ class EMP(pg.sprite.Sprite):
         if self.life <= 0:
             self.kill()
         
-
 
 
 def main():
