@@ -284,8 +284,6 @@ def main():
     emys = pg.sprite.Group()
     emp = pg.sprite.Group()
 
-    score.value = 21
-
     tmr = 0
     clock = pg.time.Clock()
     while True:
